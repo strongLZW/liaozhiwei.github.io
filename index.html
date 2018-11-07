@@ -1,0 +1,69 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>拖放</title>
+    <meta charset="utf-8" />
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript">
+    $(function(){
+        $('h1').css("text-align","center");
+        $('#box').css("width","600px");
+        $('#box').css("height","600px");
+        $('#box').css("border","1px solid chartreuse");
+        $('#box').css("position","absolute");
+        $('#box').css("left","calc(50% - 300px)");
+        $('#box').css("top","calc(50% - 300px)");
+        $('#box').css("text-align","center");
+        $('#box div').css("box-sizing","border-box");
+        $('#box div').css("width","200px");
+        $('#box div').css("height","200px");
+        $('#box div').css("float","left");
+        $('#box div').css("background-color","darkcyan");
+        $('#box div').css("border","1px solid chartreuse");
+        $('#box div').css("font","bolder 18px/200px 微软雅黑");
+        $('#box div').css("color","#FFF");
+
+
+    });
+    </script>
+    <script>
+        window.onload = p;								//有名函数
+        function p(){
+            var list = document.getElementById('box').getElementsByTagName('div');
+            for(var i = 0 ; i < list.length;i++){
+                list[i].draggable = true;
+                list[i].ondragstart = divOnDragStart;
+                list[i].ondragover = divOnDragOver;
+                list[i].ondrop = divOnDrop;
+
+            }
+        }
+        var divOnDragStart = function(){				//匿名函数
+            event.dataTransfer.setData('srcId',event.target.id);
+        }
+        var divOnDragOver = function(){					//匿名函数
+            event.preventDefault();
+        }
+        var divOnDrop = function(){						//匿名函数
+            var srcId = event.dataTransfer.getData('srcId');
+            var srcNum = document.getElementById(srcId).innerText;
+            document.getElementById(srcId).innerText = event.target.innerText;
+            event.target.innerText = srcNum;
+        }
+    </script>
+</head>
+<body>
+    <h1>拼数字游戏</h1>
+	<div id="box">
+		<div id="div1">1</div>
+		<div id="div2">2</div>
+		<div id="div3">3</div>
+		<div id="div4">4</div>
+		<div id="div5">5</div>
+		<div id="div6">6</div>
+		<div id="div7">7</div>
+		<div id="div8">8</div>
+		<div id="div9">9</div>
+	</div>
+</body>
+</html>
